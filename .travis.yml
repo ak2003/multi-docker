@@ -11,7 +11,7 @@ script:
 after_succes:
     - docker build -t arikarniawan/multi-client ./client
     - docker build -t arikarniawan/multi-nginx ./nginx
-    - docker build -t arikarniawan/multi=server ./server
+    - docker build -t arikarniawan/multi-server ./server
     - docker build -t arikarniawan/multi-worker ./worker
     # Log in to the docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
