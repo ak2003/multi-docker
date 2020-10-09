@@ -1,4 +1,6 @@
 sudo: required
+language: generic
+
 services:
     - docker
 
@@ -6,7 +8,7 @@ before_install:
     - docker build -t arikarniawan/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run -e CI=true arikarniawan/react-test npm test
+    - docker run -e CI=true arikarniawan/react-test npm test -- --coverage
 
 after_succes:
     - docker build -t arikarniawan/multi-client ./client
@@ -24,10 +26,11 @@ after_succes:
 deploy:
     edge: true
     provider: elasticbeanstalk
-    region: ap-southeast-1
-    app: multi-docker
-    env: MultiDocker-env
-    bucket_name: elasticbeanstalk-ap-southeast-1-889862894947
+    region: 'ap-southeast-1'
+    app: 'multi-docker'
+    env: 'MultiDocker-env'
+    bucket_name: 'elasticbeanstalk-ap-southeast-1-889862894947'
+    bucket_path: 'docker-multi'
     on:
         branch: master
     access_key_id: $AWS_ACCESS_KEY
